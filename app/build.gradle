@@ -1,16 +1,21 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 28
     buildToolsVersion "30.0.3"
 
     defaultConfig {
+        configurations.all {
+            resolutionStrategy { force 'androidx.core:core-ktx:1.6.0' }
+        }
         applicationId "com.prj.viewmodelex"
-        minSdkVersion 21
-        targetSdkVersion 31
+        minSdkVersion 23
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
 
@@ -31,11 +36,10 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures{
+        dataBinding true
         viewBinding true
     }
-    buildFeatures{
-        dataBinding true
-    }
+
 }
 
 dependencies {
@@ -49,7 +53,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    def lifecycler_version = "2.3.0"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycler_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycler_version"
+    def lifecycle_version = "2.3.0"
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.activity:activity-ktx:1.1.0"
 }
